@@ -1,0 +1,7 @@
+残タスク一覧の定期送信
+
+= タスクの一覧 =
+[[TaskList(status!=closed)]]
+
+= 署名 =
+TracReportMail.py
