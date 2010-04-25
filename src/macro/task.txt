@@ -1,0 +1,6 @@
+ #%(id)s 概要:%(summary)s
+作業予定:%(due_assign)s - %(due_close)s
+進捗：%(status)s  %(complete)s %%
+状況：
+  %(comment)s
+
