@@ -1,2 +1,4 @@
+dist
+TracReportMail.egg-info
 *.pyc
 log.txt
