@@ -19,8 +19,19 @@ def send(from_addr, to_addr, msg):
     s.sendmail(from_addr, [to_addr], msg.as_string())
     s.close()
 
+def send_via_gmail(from_addr, to_addr, msg):
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.ehlo()
+    s.starttls()
+    s.ehlo()
+    s.login('yourname@gmail.com', 'password')
+    s.sendmail(from_addr, [to_addr], msg.as_string())
+    s.close()
+
 if __name__ == '__main__':
     from_addr = 'spam@example.com'
     to_addr = 'egg@example.com'
     msg = create_message(from_addr, to_addr, 'test subject', 'test body')
     send(from_addr, to_addr, msg)
+    send_via_gmail(from_addr, to_addr, msg)
+
