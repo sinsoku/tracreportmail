@@ -5,9 +5,10 @@ import smtplib
 from email.MIMEText import MIMEText
 from email.Utils import formatdate
 
-def create_message(from_addr, to_addr, subject, body):
-    msg = MIMEText(body)
-    msg['Subject'] = subject
+def create_message(from_addr, to_addr, subject, body, encoding):
+    # 'text/plain; charset="encoding"'というMIME文書を作ります
+    msg = MIMEText(body, 'plain', encoding)
+    msg['Subject'] = Header(subject, encoding)
     msg['From'] = from_addr
     msg['To'] = to_addr
     msg['Date'] = formatdate()
@@ -31,7 +32,7 @@ def send_via_gmail(from_addr, to_addr, msg):
 if __name__ == '__main__':
     from_addr = 'spam@example.com'
     to_addr = 'egg@example.com'
-    msg = create_message(from_addr, to_addr, 'test subject', 'test body')
+    msg = create_message(from_addr, to_addr, u'テスト', u'本文', 'ISO-2022-JP')
     send(from_addr, to_addr, msg)
     send_via_gmail(from_addr, to_addr, msg)
 
