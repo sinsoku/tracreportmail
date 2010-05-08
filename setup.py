@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
-import imp
-mod = imp.load_source('tracreportmail_test', './test/tracreportmail_test.py')
+import sys
+sys.path.append('./src')
+sys.path.append('./test')
 
 setup(
     name = "TracReportMail",

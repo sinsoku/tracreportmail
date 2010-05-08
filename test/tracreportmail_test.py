@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import unittest
+import tracreportmail as trm
 
 class TestSample(unittest.TestCase):
     def testsample(self):
-        self.assertTrue(True)
+        self.assert_(trm.send)
 
 def suite():
   suite = unittest.TestSuite()
