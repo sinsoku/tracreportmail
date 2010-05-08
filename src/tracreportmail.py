@@ -30,6 +30,24 @@ def send_via_gmail(from_addr, to_addrs, msg):
     s.sendmail(from_addr, to_addrs, msg.as_string())
     s.close()
 
+def create_tasks(server, query):
+    tasks = []
+    
+    ids = server.ticket.query(query)
+    for id in ids:
+        ticket = server.ticket.get(id)
+        task = ticket[3] # ticket[3]はチケットのフィールド値
+        
+        # idとcommentはticket[3]に含まれていないため、追加する
+        task['id'] = id
+        for changes in server.ticket.changeLog(id):
+            if changes[2] == 'comment':
+                task['comment'] = changes[4].encode('utf-8')
+        
+        tasks.append(task)
+    
+    return tasks
+
 if __name__ == '__main__':
     from_addr = 'spam@example.com'
     to_addrs = ['egg@examplex.com']
