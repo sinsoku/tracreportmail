@@ -5,6 +5,7 @@ import smtplib
 from email.MIMEText import MIMEText
 from email.Header import Header
 from email.Utils import formatdate
+from xml_rpc import XmlRpcServer
 
 def create_message(from_addr, to_addrs, subject, body, encoding):
     # 'text/plain; charset="encoding"'というMIME文書を作ります
@@ -42,7 +43,7 @@ def create_tasks(server, query):
         task['id'] = id
         for changes in server.ticket.changeLog(id):
             if changes[2] == 'comment':
-                task['comment'] = changes[4].encode('utf-8')
+                task['comment'] = changes[4]
         
         tasks.append(task)
     
@@ -54,9 +55,22 @@ def read_templete():
     return body
 
 if __name__ == '__main__':
+    url = 'http://localhost/trac/SampleProject/login/xmlrpc'
+    user, password = 'admin', 'admin'
+    server = XmlRpcServer(url, user, password)
+
+    query = 'status!=closed'
+    tasks = create_tasks(server, query)
+
+    body = read_templete()
+    for task in tasks:
+        for k,v in task.items():
+            body += str(k) + " " + str(v) + "\n"
+        body += "\n"
+
     from_addr = 'spam@example.com'
     to_addrs = ['egg@examplex.com']
-    msg = create_message(from_addr, to_addrs, u'テスト', u'本文', 'ISO-2022-JP')
+    msg = create_message(from_addr, to_addrs, u'テスト', body, 'ISO-2022-JP')
     send(from_addr, to_addrs, msg)
     send_via_gmail(from_addr, to_addrs, msg)
 
