@@ -1,0 +1,13 @@
+メッセージ本文のヘッダー
+
+{{{
+#%(id)s : %(summary)s
+期間：%(due_assign)s ～ %(due_close)s
+進捗：%(complete)s
+状況：%(status)s
+コメント：
+%(description)s
+
+}}}
+
+メッセージ本文のフッター

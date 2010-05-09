@@ -48,6 +48,11 @@ def create_tasks(server, query):
     
     return tasks
 
+def read_templete():
+    body = u""
+
+    return body
+
 if __name__ == '__main__':
     from_addr = 'spam@example.com'
     to_addrs = ['egg@examplex.com']
